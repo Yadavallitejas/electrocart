@@ -145,5 +145,5 @@ MESSAGE_TAGS = {
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'tejas22255127@gmail.com'
-EMAIL_HOST_PASSWORD = 'Stark@123'
+EMAIL_HOST_PASSWORD = 'cqiu uaja erid lmef'
 EMAIL_USE_TLS = True
