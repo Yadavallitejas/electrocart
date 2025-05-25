@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class"card-title mb-4"> Billing Address</h4>
-                    <form action="{% url 'checkout' %}" method="POST">
+                    <form action="{% url 'place_order' %}" method="POST">
                         {% csrf_token %}
                         <div class="form-row">
                             <div class="col-md-6 form-group">
@@ -35,12 +35,12 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-6 form-group">
-                                <label for="address_lane_1">Address lane 1</label>
-                                <input type="text" class="form-control" id="address_lane_1" name="address_lane_1" placeholder="Address" required>
+<label for="address_line_1">Address line 1</label>
+<input type="text" class="form-control" id="address_line_1" name="address_line_1" placeholder="Address" required>
                             </div>
                             <div class="col-md-6 form-group">
-                                <label for="address_lane_2">Address lane 2</label>
-                                <input type="text" class="form-control" id="address_lane_2" name="address_lane_2" placeholder="Address">
+<label for="address_line_2">Address line 2</label>
+<input type="text" class="form-control" id="address_line_2" name="address_line_2" placeholder="Address">
                             </div>
                         </div>
                         <div class="form-row">
@@ -53,6 +53,10 @@
                                 <input type="text" class="form-control" id="country" name="country" placeholder="Country" required>
                             </div>
                         </div>
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
+                            </div>
                         <div class="form-group">
                             <label for="order_note">Order Note</label>
                             <textarea class="form-control" id="order_note" name="order_note" rows="3" placeholder="Order Note"></textarea>
@@ -108,8 +112,8 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="./place-order.html" class="btn btn-primary btn-block"> Place Order </a>
-                    <a href="./store.html" class="btn btn-light btn-block">Continue Shopping</a>
+                    <button type="submit" class="btn btn-primary btn-block">Place Order</button>
+                    <a href="{% url 'store'%}" class="btn btn-light btn-block">Continue Shopping</a>
                 </form>
                 </div>
             </div>

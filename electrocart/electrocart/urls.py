@@ -27,5 +27,6 @@ urlpatterns = [
     path('store/', include('store.urls')),  # Add this line to include the store app URLs
     path('cart/', include('cart.urls')),  # Add this line to include the cart app
     path('accounts/', include('accounts.urls')),  # Add this line to include the accounts app URLs
+    path('orders/', include('orders.urls')),  # Add this line to include the orders app URLs
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Add this line to serve media files in development
