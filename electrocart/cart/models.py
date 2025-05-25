@@ -1,6 +1,6 @@
 from django.db import models
 from store.models import Product  # Import the Product model from the store app
-
+from accounts.models import account  # Import the Account model from the accounts app
 # Create your models here.
 class Cart(models.Model):
     cart_id = models.CharField(max_length=255, blank=True)  # Unique identifier for the cart
@@ -10,9 +10,10 @@ class Cart(models.Model):
         return self.cart_id
     
 class CartItem(models.Model):
+    user = models.ForeignKey(account, on_delete=models.CASCADE, null=True)  # Foreign key referencing the User model
     product = models.ForeignKey(Product, on_delete=models.CASCADE)  # Foreign key referencing the Productioo
     variations = models.ManyToManyField('store.Variation', blank=True)  # Many-to-many relationship with Variation
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)  # Foreign key referencing the Cart
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)  # Foreign key referencing the Cart
     quantity = models.IntegerField()  # Quantity of the product in the cart
     is_active = models.BooleanField(default=True)  # Indicates if the item is active in the cart
 

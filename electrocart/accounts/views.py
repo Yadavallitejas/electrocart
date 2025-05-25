@@ -11,6 +11,9 @@ from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
+from cart.models import Cart, CartItem
+from cart.views import _cart_id
+import requests
 
 # Create your views here.
 def register(request):
@@ -59,9 +62,57 @@ def login(request):
         password = request.POST['password']
         user = auth.authenticate(email=email, password=password)
         if user is not None:
+            try:
+                cart = Cart.objects.get(cart_id=_cart_id(request))  # Get the cart using the session key
+                is_cart_item_exists = CartItem.objects.filter(cart=cart).exists()
+                if is_cart_item_exists:
+                    cart_items = CartItem.objects.filter(cart=cart)
+
+                    product_variation_list = []
+                    cart_item_ids = []
+                    for item in cart_items:
+                        variations = item.variations.all()
+                        product_variation_list.append(list(variations))
+                        cart_item_ids.append(item.id)
+
+                    user_cart_items = CartItem.objects.filter(user=user)
+                    ex_var_list = []
+                    user_cart_item_ids = []
+                    for item in user_cart_items:
+                        existing_variations = item.variations.all()
+                        ex_var_list.append(list(existing_variations))
+                        user_cart_item_ids.append(item.id)
+
+                    for i, pr in enumerate(product_variation_list):
+                        if pr in ex_var_list:
+                            index = ex_var_list.index(pr)
+                            item_id = user_cart_item_ids[index]
+                            item = CartItem.objects.get(id=item_id)
+                            item.quantity += cart_items[i].quantity
+                            item.save()
+                            cart_items[i].delete()
+                        else:
+                            cart_item = CartItem.objects.get(id=cart_item_ids[i])
+                            cart_item.user = user
+                            cart_item.cart = None
+                            cart_item.save()
+
+                    # Delete the session cart after merging
+                    cart.delete()
+
+            except Cart.DoesNotExist:
+                pass
+
             auth.login(request, user)
             messages.success(request, "Login successful.")
-            return redirect('dashboard')
+            url = request.META.get('HTTP_REFERER')  # Get the URL of the page that made the request
+            try:
+                query = requests.utils.urlparse(url).query  # Parse the URL to get the query parameters
+                params = dict(x.split('=') for x in query.split('&'))  # Convert query parameters to a dictionary
+                if 'next' in params:  # Check if 'next' parameter exists
+                    return redirect(params['next'])  # Redirect to the next page
+            except:
+                return redirect('dashboard')
         else:
             messages.error(request, "Invalid email or password.")
             return redirect('login')
