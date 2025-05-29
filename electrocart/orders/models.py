@@ -4,6 +4,7 @@ from store.models import Product, Variation
 
 
 
+
 # Create your models here.
 class payment(models.Model):
     user = models.ForeignKey(account, on_delete=models.CASCADE)
@@ -57,7 +58,7 @@ class OrderProduct(models.Model):
     payment = models.ForeignKey(payment, on_delete=models.SET_NULL, blank=True, null=True)
     user = models.ForeignKey(account, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    variation = models.ForeignKey(Variation, on_delete=models.CASCADE)
+    variation = models.ManyToManyField(Variation, blank=True)
     color = models.CharField(max_length=20, blank=True)
     size = models.CharField(max_length=20, blank=True)
     quantity = models.IntegerField()

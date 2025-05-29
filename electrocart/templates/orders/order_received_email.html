@@ -1,0 +1,6 @@
+{% autoescape off %}
+hi {{ order.user.first_name }},
+Thank you for your order!
+Your order number is {{ order.order_number }} and the total amount is {{ order.get_total }}.
+
+{% endautoescape %}

@@ -30,10 +30,10 @@
     
     
     <hr>
-        <div class="row">
+        {% comment %} <div class="row">
             <div class="item-option-select">
                 <h6>Choose Color</h6>
-              <select name='color' class="form-control form-control-sm" required>
+              <select name='color' class="form-control form-control-sm" >
                 <option value="" disabled selected>Select</option>
                 {% for color in single_product.colors.all %}
                   <option value="{{ color.variation_value | lower }}">{{ color.variation_value | capfirst }}</option>
@@ -45,14 +45,14 @@
         <div class="row">
             <div class="item-option-select">
                 <h6>Select Size</h6>
-              <select name='size' class="form-control form-control-sm" required>
+              <select name='size' class="form-control form-control-sm" >
                   <option value="" disabled selected>Select</option>
                 {% for size in single_product.sizes.all %}
                   <option value="{{ size.variation_value | lower }}">{{ size.variation_value | capfirst }}</option>
                 {% endfor %}
               </select>
             </div>
-        </div> <!-- row.// -->
+        </div> <!-- row.// --> {% endcomment %}
         <hr>
         {% if single_product.stock <= 0 %}
           <h5 class="text-danger">Out of Stock</h5>
