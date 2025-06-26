@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load star_rating %}
 
 {% block content %}
 
@@ -34,6 +35,17 @@
 			<figcaption class="info-wrap">
 				<a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
 				<div class="price mt-1">{{ product.price }}</div> <!-- price-wrap.// -->
+				<div class="rating-star">
+            <span>
+                <i class="fas fa-star{{ product.averageReview|star_class:1 }}" aria-hidden="true"></i>
+                <i class="fas fa-star{{ product.averageReview|star_class:2 }}" aria-hidden="true"></i>
+                <i class="fas fa-star{{ product.averageReview|star_class:3 }}" aria-hidden="true"></i>  
+                <i class="fas fa-star{{ product.averageReview|star_class:4 }}" aria-hidden="true"></i>
+                <i class="fas fa-star{{ product.averageReview|star_class:5 }}" aria-hidden="true"></i>
+
+    
+              </span>
+        </div>
 			</figcaption>
 		</div>
 	</div> <!-- col.// -->
