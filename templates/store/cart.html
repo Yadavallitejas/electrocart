@@ -40,13 +40,7 @@
                 <figcaption class="info">
                     <a href="{{item.product.get_url}}" class="title text-dark">{{ item.product.product_name}}</a> 
                     <p class="text-muted small">
-                        {% if item.variations.all %}
-                            {% for cartitem in item.variations.all %}
-                                {{ cartitem.variation_category |capfirst }}: {{ cartitem.variation_value |capfirst }}<br>
-                            {% endfor %}
-                        {% else %}
-                            No variations
-                        {% endif %}
+                        
                         
                     </p>
                 </figcaption>

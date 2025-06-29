@@ -17,7 +17,7 @@
 			<strong class="d-inline-block mr-3">Edit your profile</strong>
 		</header>
 		<div class="card-body">
-            <div class="text-right">
+            <div class="text-center mb-4">
                 <img src="{{ userprofile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 100px; height: 100px; border-radius: 50%;">
 			<div class="row"> 
 				
@@ -37,10 +37,16 @@
                             <div class="form-group col-md-6">
                                 <label >phone_number</label>
                                 {{user_form.phone_number}}
+                                {% if user_form.phone_number.errors %}
+                                    <div class="text-danger">{{ user_form.phone_number.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="form-group col-md-6">
                                 <label >profile picture</label>
                                 {{profile_form.profile_picture}}
+                                {% if profile_form.profile_picture.errors %}
+                                    <div class="text-danger">{{ profile_form.profile_picture.errors }}</div>
+                                {% endif %}
                             </div>
                         <div class="form-row">
                             <div class="form-group col-12">

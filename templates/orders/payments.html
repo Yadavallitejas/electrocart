@@ -51,19 +51,13 @@
                                         <figcaption class="info">
                                             <a href="{{item.product.get_url}}" class="title text-dark">{{ item.product.product_name}}</a> 
                                             <p class="text-muted small">
-                                                {% if item.variations.all %}
-                                                    {% for cartitem in item.variations.all %}
-                                                        {{ cartitem.variation_category |capfirst }}: {{ cartitem.variation_value |capfirst }}<br>
-                                                    {% endfor %}
-                                                {% else %}
-                                                    No variations
-                                                {% endif %}
+                                               
                                             </p>
                                         </figcaption>
                                     </figure>
                                 </td>
                                 <td> 
-                                    <label for="">{{ quantity }}</label>
+                                    <label for="">{{ item.quantity }}</label>
                                 </td>
                                 <td> 
                                     <div class="price-wrap"> 
@@ -102,7 +96,9 @@
                 </p>
                 <div id="paypal-button-container">
 
+
                 </div>
+
 
             </div> <!-- card-body.// -->
             </div> <!-- card.// -->
@@ -116,6 +112,9 @@
     </div> <!-- container .//  -->
     </section>
     <!-- ============================ COMPONENT 1 END .// ================================= -->
+
+<!-- Add PayPal SDK script -->
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
     <script>
         function getCookie(name) {
             let cookieValue = null;
@@ -136,11 +135,10 @@
 
         var url = "{% url 'payments' %}";
         var csrfToken = getCookie('csrftoken');
-        var orderID = {{order.order_number}}; // Assuming you have the order ID available in your context
+        var orderID = "{{order.order_number}}"; // Ensure orderID is a string
         var payment_method = 'paypal'; // Set the payment method to PayPal
         var redirect_url = "{% url 'order_complete' %}";
 
-        
         paypal.Buttons({
 
             style: {
@@ -148,7 +146,6 @@
                 shape: 'pill',
                 label: 'pay',
                 height: 40
-
             },
 
             createOrder: function(data, actions) {
@@ -167,23 +164,24 @@
                     sendData();
 
                     function sendData() {
-                        fetch(url,{
+                        fetch(url, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                                 'X-CSRFToken': csrfToken,
                             },
                             body: JSON.stringify({
-                                orderID: orderId,
+                                orderID: orderID,
                                 transID: details.id,
                                 payment_method: payment_method,
-                                status: details.status,
-                                ;
-                        }),
-                        .then((resposnse) => response.json())
-                        .then((data) => console.log(data)); 
-                        
-                            windows.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.payment_id;
+                                status: details.status
+                            }),
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            window.location.href = redirect_url + '?order_number=' + data.order_number + '&payment_id=' + data.payment_id;
+                        });
                     }
                 });
             }
