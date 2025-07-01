@@ -31,10 +31,19 @@
 	{% for product in products %}
 	<div class="col-md-3">
 		<div class="card card-product-grid">
+			{% if product.image %}
 			<a href="{{ product.get_url }}" class="img-wrap"> <img src="{{ product.image.url }}"> </a>
+			{% else %}
+			<a href="{{ product.get_url }}" class="img-wrap"> <img src="" alt="No image available"> </a>
+			{% endif %}
 			<figcaption class="info-wrap">
 				<a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
-				<div class="price mt-1">{{ product.price }}</div> <!-- price-wrap.// -->
+                <span class="price">₹{{ product.price}}</span>
+				
+				{% if product.original_price %}
+					<del class="price-old">₹{{product.original_price}}</del>
+				{% endif %}
+
 				<div class="rating-star">
             <span>
                 <i class="fas fa-star{{ product.averageReview|star_class:1 }}" aria-hidden="true"></i>

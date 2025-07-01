@@ -5,7 +5,7 @@ from store.models import Product
 from store.models import ReviewRating
 
 def home(request):
-    products = Product.objects.all().filter(available=True).order_by('created_at')
+    products = Product.objects.filter(available=True).order_by('?')[:6]
     categories = Category.objects.all()
     for product in products:
         reviews = ReviewRating.objects.filter(product_id=product.id, status=True)
