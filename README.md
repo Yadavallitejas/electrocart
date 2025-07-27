@@ -33,7 +33,7 @@ ElectroCart is a full-featured ecommerce web application designed for selling el
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
+   git clone <https://github.com/Yadavallitejas/electrocart.git>
    ```
 2. Navigate to the project directory:
    ```
