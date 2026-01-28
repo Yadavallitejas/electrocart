@@ -35,6 +35,7 @@ def register(request):
             user.phone_number = phone_number
             user.save()
             # You might want to redirect after successful registration
+            print("Before sending activation email")
             current_site = get_current_site(request)
             mail_subject = 'Activate your account.'
             message = render_to_string('accounts/activation_email.html', {
@@ -45,7 +46,12 @@ def register(request):
             })
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
-            send_email.send()
+            try:
+                send_email.send()
+                print("Activation email sent successfully.")
+            except Exception as e:
+                print(f"Error sending email: {e}")
+            print("After sending activation email")
             #messages.success(request, "Thankyou for registering, we have sent you a verification email. Please verify your account your account.")
             return redirect('/accounts/login/?command=verification&email='+email)
 

@@ -32,14 +32,11 @@ class RegistrationForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
            
     def clean(self):
-        cleaned_data = super().clean()
+        cleaned_data = super(RegistrationForm, self).clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
-
-        if password != confirm_password:
-            raise forms.ValidationError(
-                "Password and Confirm Password does not match"
-            )
+        if password and confirm_password and password != confirm_password:
+            raise forms.ValidationError("Password and Confirm Password do not match.")
         return cleaned_data
 
     def clean_phone_number(self):

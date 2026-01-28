@@ -5,6 +5,13 @@
 
 ElectroCart is a full-featured ecommerce web application designed for selling electronic items online. Built with Django, this web app provides a seamless shopping experience with product browsing, detailed product views, cart management, order placement, and payment processing. It also supports user accounts, product reviews, and an intuitive interface for customers to explore and purchase electronics.
 
+## Demo
+
+<video width="640" height="360" controls autoplay muted>
+  <source src="https://github.com/Yadavallitejas/electrocart/raw/main/static/demo/demo_video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ## Features
 
 - **Product Catalog:** Browse a wide range of electronic products organized by categories.
