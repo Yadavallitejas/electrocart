@@ -7,10 +7,7 @@ ElectroCart is a full-featured ecommerce web application designed for selling el
 
 ## Demo
 
-<video width="640" height="360" controls>
-  <source src="https://raw.githubusercontent.com/Yadavallitejas/electrocart/main/static/demo/demo_video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Watch Demo Video](https://img.shields.io/badge/▶%20Watch%20Demo-Video-blue?style=for-the-badge)](https://raw.githubusercontent.com/Yadavallitejas/electrocart/main/static/demo/demo_video.mp4)
 
 ## Features
 
