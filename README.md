@@ -7,8 +7,7 @@ ElectroCart is a full-featured ecommerce web application designed for selling el
 
 ## Demo
 
-<iframe width="640" height="360" src="https://github.com/Yadavallitejas/electrocart/raw/main/static/demo/demo_video.mp4" frameborder="0" allowfullscreen></iframe>
-
+[![Homepage Screenshot](static/demo/homepage.png)](https://drive.google.com/file/d/1dF4GF9MAAN8X6LqfWzGfhGrXvNmIoJEn/view?usp=sharing)
 ## Features
 
 - **Product Catalog:** Browse a wide range of electronic products organized by categories.
